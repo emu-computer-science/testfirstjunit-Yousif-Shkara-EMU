@@ -159,10 +159,21 @@ public class Date
         return (month + " " + day + ", " + year);
     }
 
-    public boolean equals(Date otherDate)
+    // THIS METHOD IS WRONG SO I HAD TO MODIFY IT, SEE BELOW
+    /*public boolean equals(Date otherDate)
     {
         return ( (month.equals(otherDate.month))
                   && (day == otherDate.day) && (year == otherDate.year) );
+    }*/
+    
+    public boolean equals(Object obj)
+    {
+    	if(this == obj) return true;
+    	Date otherDate = (Date) obj;
+    	
+    	return ( (month.equals(otherDate.month))
+                && (day == otherDate.day) && (year == otherDate.year) );
+    	
     }
 
     public boolean precedes(Date otherDate)
@@ -205,7 +216,8 @@ public class Date
     {			
         return ( monthOK(monthString) &&
                  (dayInt >= 1) && (dayInt <= 31) &&
-                 (yearInt >= 1000) && (yearInt <= 9999) );
+                 (yearInt >= 1000) && (yearInt <= 9999) &&
+                 !(monthString.equals("February") && dayInt > 28));
     }
 
     private boolean monthOK(String month)
@@ -254,11 +266,61 @@ public class Date
     }
     
     Date addOneDay(){
-    	   System.out.println("Date.addOneDay() is not yet implemented.");
-    	   return null;
+    	   //System.out.println("Date.addOneDay() is not yet implemented.");
+    	   
+    	   //this.day + 1;
+    	//int newDay = this.day + 1;
+    	//this.setDay(newDay);
+    	this.day++;
+    	   //String newMonth = this.month;
+    	   //int newYear = this.year;
+    	
+    	   
+    	   
+    	   if(day > daysInMonth(this.month))
+    	   {
+    		   day = 1;
+    		   switch(this.month)
+    		   {
+    		    case "January": this.month = "February"; break;
+    	        case "February": this.month = "March"; break;
+    	        case "March": this.month = "April"; break;
+    	        case "April": this.month = "May"; break;
+    	        case "May": this.month = "June"; break;
+    	        case "June": this.month = "July"; break;
+    	        case "July": this.month = "August"; break;
+    	        case "August": this.month = "September"; break;
+    	        case "September": this.month = "October"; break;
+    	        case "October": this.month = "November"; break;
+    	        case "November": this.month = "December"; break;
+    	        case "December": this.month = "January"; break;
+    	        default: this.month = "January"; 
+    		   }
+    		   
+    		   if(this.month.equals("January")) this.year++; 
+    	   }
+    	   //Date date = new Date(newMonth, newDay, newYear);
+
+    	   return this;
+    	   
+    	   
+    	   
+    	   
     }
     
-   
+    private int daysInMonth(String month) {
+        switch (month) {
+            case "January": case "March": case "May": case "July": case "August": case "October": case "December":
+                return 31;
+            case "April": case "June": case "September": case "November":
+                return 30;
+            case "February":
+                return 28;
+            default:
+                return 31;
+        }
+    }
+    
     
     
     

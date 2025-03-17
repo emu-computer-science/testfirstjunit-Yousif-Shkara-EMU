@@ -57,6 +57,12 @@ public class DateSetDateTest {
 		assertEquals("January 1, 1000", date.toString());
 	}
 	
+	@Test
+	public void testSetDateIllegal4()
+	{
+		date.setDate("February", 29, 2021);
+		assertEquals("January 1, 1000", date.toString());
+	}
 	
 	
 }
