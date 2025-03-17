@@ -58,18 +58,18 @@ public class Date
         }
     }
 
-    public void setDate(String monthString, int day, int year)
+    public Date setDate(String monthString, int day, int year)
     {
         if (dateOK(monthString, day, year))
         {
             this.month = monthString;
             this.day = day;
             this.year = year;
+            return this;
         }
         else
         {
-            System.out.println("Fatal Error in setDate(String,int, int)");
-            System.exit(0);
+        	return null;
         }
     }
 
@@ -202,7 +202,7 @@ public class Date
     }
 
     private boolean dateOK(String monthString, int dayInt, int yearInt)
-    {
+    {			
         return ( monthOK(monthString) &&
                  (dayInt >= 1) && (dayInt <= 31) &&
                  (yearInt >= 1000) && (yearInt <= 9999) );
@@ -252,6 +252,16 @@ public class Date
             return "Error"; //to keep the compiler happy
         }
     }
+    
+    Date addOneDay(){
+    	   System.out.println("Date.addOneDay() is not yet implemented.");
+    	   return null;
+    }
+    
+   
+    
+    
+    
     public static void main(String[] args) {
         System.out.println("Main in Date.");
         Date tester = new Date();
