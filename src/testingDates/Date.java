@@ -159,21 +159,15 @@ public class Date
         return (month + " " + day + ", " + year);
     }
 
-    // THIS METHOD IS WRONG SO I HAD TO MODIFY IT, SEE BELOW
-    /*public boolean equals(Date otherDate)
-    {
-        return ( (month.equals(otherDate.month))
-                  && (day == otherDate.day) && (year == otherDate.year) );
-    }*/
-    
-    public boolean equals(Object obj)
-    {
-    	if(this == obj) return true;
-    	Date otherDate = (Date) obj;
-    	
-    	return ( (month.equals(otherDate.month))
-                && (day == otherDate.day) && (year == otherDate.year) );
-    	
+    @Override
+    public Object clone() {
+    return new Date(this);
+    }
+    @Override
+    public boolean equals(Object maybeDate) {
+    	if (maybeDate == null || maybeDate.getClass() != getClass()) return false;
+    	Date maybeCopy = (Date) maybeDate;
+    	return maybeCopy.day == day && maybeCopy.month == month && maybeCopy.year == year;
     }
 
     public boolean precedes(Date otherDate)
